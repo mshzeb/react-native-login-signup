@@ -30,6 +30,9 @@ local.properties
 *.iml
 *.hprof
 
+.bundle
+__tests__
+
 # node.js
 #
 node_modules/

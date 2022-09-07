@@ -74,7 +74,83 @@ const LoginScreen = ({navigation}) => {
     };
 
     return(
-        
+        <View style={styles.mainBody}>
+            <Loader loading={loading} />
+            <ScrollView
+                keyboardShouldPersistTaps="handled"
+                contentContainerStyle={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                }}>
+                <View>
+                    <KeyboardAvoidingView enabled>
+                        <View style={{alignItems: 'center'}}>
+                            <Image
+                                source={require('../Image/aboutreact.png')}
+                                style={{
+                                    width:'50%',
+                                    height: 100,
+                                    resizeMode: 'contain',
+                                    margin: 30,
+                                }}
+                            />
+                        </View>
+                        <View style={styles.SectionStyle}>
+                            <TextInput
+                                style={styles.inputStyle}
+                                onChangeText={(UserEmail) =>
+                                    setUserEmail(UserEmail)
+                                }
+                                placeholder="Enter Email" //dummy@abc.com
+                                placeholderTextColor="#8b9cb5"
+                                autoCapitalize="none"
+                                keyboardType="email-address"
+                                returnKeyType="next"
+                                onSubmitEditing={() =>
+                                    passwordInputRef.current && passwordInputRef.current.focus()
+                                }
+                                underlineColorAndroid="#f000"
+                                blurOnSubmit={false}
+                            />
+                        </View>
+                        <View style={styles.SectionStyle}>
+                            <TextInput
+                                style={styles.inputStyle}
+                                onChangeText={(UserPassword) =>
+                                    setUserPassword(UserPassword)
+                                }
+                                placeholder="Enter Password" //12345
+                                placeholderTextColor="#8b9cb5"
+                                keyboardType="default"
+                                ref={passwordInputRef}
+                                onSubmitEditing={Keyboard.dismiss}
+                                blurOnSubmit={false}
+                                secureTextEntry={true}
+                                underlineColorAndroid="#f000"
+                                returnKeyType="next"
+                            />
+                        </View>
+                        {errortext != '' ? (
+                            <Text style={styles.errorTextStyle}>
+                                {errortext}
+                            </Text>
+                        ) : null}
+                        <TouchableOpacity
+                            style={styles.buttonStyle}
+                            activeOpacity={0.5}
+                            onPress={handleSubmitPress}>
+                            <Text style={styles.buttonTextStyle}>LOGIN</Text>
+                        </TouchableOpacity>
+                        <Text
+                            style={styles.registerTextStyle}
+                            onPress={() => navigation.navigate('RegisterScreen')}>
+                                New Here ? Register
+                            </Text>
+                    </KeyboardAvoidingView>
+                </View>
+            </ScrollView>
+        </View>
     );
 };
 
@@ -129,5 +205,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
         alignSelf: 'center',
         padding: 10,
-    }
-})
+    },
+    errorTextStyle: {
+        color: 'red',
+        textAlign: 'center',
+        fontSize: 14,
+    },
+});
